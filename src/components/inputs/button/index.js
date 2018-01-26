@@ -1,3 +1,7 @@
 import Button from './button';
+import ButtonStyled from './button-styled';
 
-export default Button;
+export {
+  Button,
+  ButtonStyled,
+};
