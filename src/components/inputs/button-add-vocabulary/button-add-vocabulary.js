@@ -5,9 +5,9 @@ import PlusIcon from 'react-icons/lib/fa/plus-square';
 
 const Button = styled.button`
     background-color: #3a9362;
-    width: 14rem;
-    height: 5rem;
-    line-height: 5rem;
+    width: 12rem;
+    height: 4rem;
+    line-height: 4rem;
     font-size: 1rem;
     color: white;
     margin: 2rem 0 0 1rem;
@@ -25,8 +25,8 @@ const Button = styled.button`
 const PlusIconStyled = styled(PlusIcon)`
   color: white;
   font-size: 2rem;
-  line-height: 5rem;
-  height: 5rem;
+  line-height: 4rem;
+  height: 4rem;
 `;
 
 const ButtonAddVocabulary = ({ value }) => (
