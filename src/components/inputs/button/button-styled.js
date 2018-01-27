@@ -3,11 +3,11 @@ import styled from 'styled-components';
 const themes = {
   blue: {
     backgroundColor: '#21367d',
-    backgroundColorHover: '#2d63e7',
+    backgroundColorHover: '#224ab1',
   },
   green: {
     backgroundColor: '#3a9362',
-    backgroundColorHover: '#3ab68b',
+    backgroundColorHover: '#319c76',
   },
   red: {
     backgroundColor: '#bd6473',

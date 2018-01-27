@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import PlusIcon from 'react-icons/lib/fa/plus-square';
 
 const Button = styled.button`
-    background-color: #3a9362;
+    background-color: #027b39;
     width: 12rem;
     height: 4rem;
     line-height: 4rem;
@@ -16,6 +16,7 @@ const Button = styled.button`
     cursor: pointer;
     display: flex;
     justify-content: space-around;
+    box-shadow: 0 0 12px black;
     
     :hover .hover-green {
       color: #9dffc8;

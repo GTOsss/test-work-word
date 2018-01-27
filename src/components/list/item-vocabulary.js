@@ -22,6 +22,7 @@ const Item = styled.div`
   border-radius: 5px;
   margin: 1rem 0 0 1rem;
   position: relative;
+  box-shadow: 0 0 14px black;
 `;
 
 const Title = styled.h4`
