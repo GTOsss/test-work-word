@@ -9,19 +9,21 @@ const LinkStyled = styled(Link)`
   height: 2rem;
   line-height: 2rem;
   padding: 0 1rem;
-  border-right: 1px solid #747474;
+  border-right: 1px solid #00351f;
+  border-bottom: 1px solid #00351f;
   text-decoration: none;
-  background-color: #d3d3d3;
-  color: black;
+  background-color: #006b36;
+  color: white;
+  box-sizing: border-box;
 
   &.active {
-    background-color: grey;
+    background-color: #004518;
     color: #ebebeb;
   }
   
   :hover {
     color: white;
-    background-color: #a0a0a0;
+    background-color: #005c1e;
   }
 `;
 

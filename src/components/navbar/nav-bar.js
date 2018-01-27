@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Nav = styled.nav`
-  height: 2rem;
-  background-color: #D3D3D3;
-  border-bottom: 1px solid #adadad;
+    height: 2rem;
+    background: linear-gradient(135deg,#00b74d 0%,#004c2d 100%);
+    border-bottom: 1px solid #00351f;
+    box-sizing: border-box;
 `;
 
 const NavBar = ({ title, children }) => (
