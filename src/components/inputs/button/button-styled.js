@@ -13,6 +13,14 @@ const themes = {
     backgroundColor: '#bd6473',
     backgroundColorHover: '#ff9aa9',
   },
+  'dark-green': {
+    backgroundColor: '#225a1f',
+    backgroundColorHover: '#00653a',
+  },
+  'dark-red': {
+    backgroundColor: '#6d1121',
+    backgroundColorHover: '#92152b',
+  },
 };
 
 const ButtonStyled = styled.button`
@@ -22,15 +30,18 @@ const ButtonStyled = styled.button`
   text-align: center;
   padding: 0.5rem 0;
   font-size: 1rem;
+  font-variant: all-petite-caps;
+  font-weight: 600;
   font-family: Arial;
   cursor: pointer;
   color: white;
   border: none;
-  border-bottom-left-radius: ${p => (p.theme.group.bottom === p.theme.group.left) && '5px'};
-  border-bottom-right-radius: ${p => (p.theme.group.bottom === p.theme.group.right) && '5px'};
-  border-top-left-radius: ${p => (p.theme.group.top === p.theme.group.left) && '5px'};
-  border-top-right-radius: ${p => (p.theme.group.top === p.theme.group.right) && '5px'};
-  background-color: ${p => themes[p.theme.name].backgroundColor};
+  border-bottom-left-radius: ${({ theme: { group = {} } }) => (group.bottom === group.left) && '5px'};
+  border-bottom-right-radius: ${({ theme: { group = {} } }) => (group.bottom === group.right) && '5px'};
+  border-top-left-radius: ${({ theme: { group = {} } }) => (group.top === group.left) && '5px'};
+  border-top-right-radius: ${({ theme: { group = {} } }) => (group.top === group.right) && '5px'};
+  background-color: ${({ theme: { name } }) => themes[name].backgroundColor};
+  margin: ${({ theme: { margin } }) => margin || ''};
 
   :hover {
     background-color: ${p => themes[p.theme.name].backgroundColorHover};

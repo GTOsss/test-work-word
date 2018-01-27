@@ -16,13 +16,14 @@ const Button = ({
 Button.propTypes = {
   value: PropTypes.string.isRequired,
   theme: PropTypes.shape({
-    name: PropTypes.oneOf(['blue', 'green', 'red']),
+    name: PropTypes.oneOf(['blue', 'green', 'red', 'dark-green', 'dark-red']),
     group: PropTypes.shape({
       groupBottom: false,
       groupTop: false,
       groupLeft: false,
       groupRight: false,
     }),
+    margin: PropTypes.string,
   }),
   onClick: PropTypes.func,
 };
