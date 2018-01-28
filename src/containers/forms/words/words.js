@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray, reduxForm, formValueSelector, arrayRemoveAll, arrayPush } from 'redux-form';
 import styled from 'styled-components';
-import { Button } from 'components/inputs/button';
+import Button from 'components/inputs/button';
 import { bindActionCreators } from 'redux';
 import * as vocabularyActions from 'actions/vocabularies';
+import * as translateAction from 'actions/translations';
 import { connect } from 'react-redux';
 import Word from './word';
 
@@ -19,7 +20,6 @@ const FormStyled = styled.form`
 
 class Words extends Component {
   static clearEmptyFields(words) {
-    console.log(words.filter(el => !(el.word && el.translate)));
     return words.filter(el => el.word && el.translate);
   }
 
@@ -34,14 +34,18 @@ class Words extends Component {
   constructor(props) {
     super(props);
 
+    this.state = { lastTouchInput: '' };
+
     this.onSubmit = this.onSubmit.bind(this);
     this.onClickRemove = this.onClickRemove.bind(this);
+    this.onChangeWord = this.onChangeWord.bind(this);
   }
 
   onClickRemove() {
     const {
-      dispatch, wordsReduxForm, actions: { vocabularyEditWords }, id,
+      dispatch, wordsReduxForm, actions: { vocabularyEditWords, clearTranslate }, id,
     } = this.props;
+    clearTranslate();
     const filterWords = wordsReduxForm.filter(el => !el.isChecked);
     dispatch(arrayRemoveAll('words', 'words'));
     filterWords.forEach(el => dispatch(arrayPush('words', 'words', el)));
@@ -53,8 +57,19 @@ class Words extends Component {
     vocabularyEditWords(id, Words.clearEmptyFields(values.words));
   }
 
+  onChangeWord({ target: { value } }, inputName) {
+    const { actions: { translate } } = this.props;
+    clearTimeout(this.timeoutId);
+    this.timeoutId = setTimeout(() => {
+      translate(value, inputName);
+      this.setState({ lastTouchInput: inputName });
+    }, 200);
+  }
+
   render() {
-    const { handleSubmit, words, isChecked } = this.props;
+    const {
+      handleSubmit, words, isChecked, translations, loading,
+    } = this.props;
 
     return (
       <FormStyled onSubmit={handleSubmit(this.onSubmit)}>
@@ -63,6 +78,10 @@ class Words extends Component {
           component={Word}
           onBlur={Words.onBlur}
           words={words}
+          onChangeWord={this.onChangeWord}
+          translations={translations}
+          loading={loading}
+          lastTouchInput={this.state.lastTouchInput}
         />
         { isChecked ? (
           <Button
@@ -95,6 +114,11 @@ Words.propTypes = {
   dispatch: PropTypes.func,
   actions: PropTypes.objectOf(PropTypes.func),
   id: PropTypes.string,
+  translations: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    translations: PropTypes.array,
+  })),
+  loading: PropTypes.objectOf(PropTypes.bool),
 };
 
 Words.defaultProps = {
@@ -102,32 +126,37 @@ Words.defaultProps = {
   dispatch: null,
   words: [],
   wordsReduxForm: [],
-  isChecked: PropTypes.bool,
+  isChecked: false,
   actions: {},
   id: '',
+  translations: [],
+  loading: {},
 };
 
 const Form = reduxForm({ form: 'words' })(Words);
 const selector = formValueSelector('words');
 
 const mapStateToProps = (state, props) => {
-  const currentWords = state.vocabularies.find(el => el.id === props.id).words;
+  const currentWords = (state.vocabularies.find(el => el.id === props.id) || {}).words;
   const wordsReduxForm = selector(state, 'words') || [];
+  const initialValues = currentWords ? {
+    words: currentWords ? [...currentWords, {}] : null,
+  } : null;
   return {
-    initialValues: {
-      words: [
-        ...currentWords,
-        {},
-      ],
-    },
+    initialValues,
     words: currentWords,
     isChecked: wordsReduxForm.some(el => el.isChecked),
     wordsReduxForm,
+    translations: state.translations,
+    loading: state.loading,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(vocabularyActions, dispatch),
+  actions: {
+    ...bindActionCreators(vocabularyActions, dispatch),
+    ...bindActionCreators(translateAction, dispatch),
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
