@@ -10,9 +10,10 @@ import {
   removeVocabulary,
   getVocabularies,
 } from 'services/local-storage';
+import shortid from 'shortid';
 
 const rename = (id, name) => ({ type: VOCABULARY_RENAME, payload: { id, name } });
-const add = () => ({ type: VOCABULARY_ADD });
+const add = vocabulary => ({ type: VOCABULARY_ADD, payload: vocabulary });
 const remove = id => ({ type: VOCABULARY_REMOVE, payload: id });
 const editWords = (id, words) => ({ type: VOCABULARY_EDIT_WORDS, payload: { id, words } });
 const getAll = vocabularies => ({ type: VOCABULARIES_GET, payload: vocabularies });
@@ -25,6 +26,7 @@ export const vocabularyEditWords = (id, words) => async (dispatch, getState) => 
 
 export const vocabularyRename = (id, name) => async (dispatch, getState) => {
   const { vocabularies } = getState();
+
   saveVocabulary(vocabularies.find(el => el.id === id));
   dispatch(rename(id, name));
 };
@@ -35,12 +37,13 @@ export const vocabularyRemove = id => async (dispatch) => {
 };
 
 export const vocabularyAdd = () => async (dispatch) => {
-  add({
+  const newVocabulary = {
     id: shortid.generate(),
     name: 'New vocabulary',
     words: [],
-  });
-  dispatch(add());
+  };
+  saveVocabulary(newVocabulary);
+  dispatch(add(newVocabulary));
 };
 
 export const vocabulariesGet = () => async (dispatch) => {

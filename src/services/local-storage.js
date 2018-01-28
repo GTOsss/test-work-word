@@ -1,15 +1,16 @@
-export const getLocalStorage = key => JSON.parse(localStorage.getItem(key));
+const getLocalStorage = key => JSON.parse(localStorage.getItem(key));
 
-export const setLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+const setLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
-export const updateCatalog = (id, remove = false) => {
+export const updateCatalog = (id) => {
   const catalog = getLocalStorage('catalog') || [];
-  const isAlreadyExist = catalog.some(el => el === id);
-  if (!isAlreadyExist) {
-    setLocalStorage('catalog', [...catalog, id]);
-  } else if (isAlreadyExist && remove) {
-    setLocalStorage('catalog', catalog.filter(el => el !== id));
-  }
+  setLocalStorage('catalog', [...catalog, id]);
+};
+
+export const removeFromCatalog = (id) => {
+  let catalog = getLocalStorage('catalog') || [];
+  catalog = catalog.filter(el => el !== id);
+  setLocalStorage('catalog', catalog);
 };
 
 export const saveVocabulary = (vocabulary) => {
@@ -19,7 +20,7 @@ export const saveVocabulary = (vocabulary) => {
 
 export const removeVocabulary = (id) => {
   localStorage.removeItem(id);
-  updateCatalog(id, true);
+  removeFromCatalog(id);
 };
 
 export const getVocabularies = () => {

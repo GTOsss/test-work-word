@@ -1,4 +1,3 @@
-import shortid from 'shortid';
 import {
   VOCABULARY_ADD,
   VOCABULARY_REMOVE,
@@ -14,12 +13,7 @@ export default function vocabularies(state = initialState, { type, payload }) {
     case VOCABULARIES_GET:
       return payload;
     case VOCABULARY_ADD: {
-      const newVocabulary = {
-        id: shortid.generate(),
-        name: 'New vocabulary',
-        words: [],
-      };
-      return [...state, newVocabulary];
+      return [...state, payload];
     }
     case VOCABULARY_REMOVE:
       return state.filter(el => el.id !== payload);
