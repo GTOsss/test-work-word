@@ -1,3 +1,7 @@
-import Input from './input';
+import Input, { InputStyled, Wrap } from './input';
 
-export default Input;
+export {
+  Input as default,
+  InputStyled,
+  Wrap,
+};

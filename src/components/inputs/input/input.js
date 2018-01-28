@@ -18,6 +18,7 @@ const InputStyled = styled.input`
   border-radius: 5px;
   box-shadow: 0 0 14px black inset;
   border: 1px solid #2ad25d;
+  border-bottom: none;
   background-color: #225a1f;
   color: white;
   font-size: 1rem;
@@ -86,4 +87,8 @@ Input.defaultProps = {
   id: '',
 };
 
-export default Input;
+export {
+  Input as default,
+  Wrap,
+  InputStyled,
+};
