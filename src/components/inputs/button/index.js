@@ -2,6 +2,6 @@ import Button from './button';
 import ButtonStyled from './button-styled';
 
 export {
-  Button,
+  Button as default,
   ButtonStyled,
 };
