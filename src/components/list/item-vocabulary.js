@@ -37,11 +37,13 @@ const Title = styled.h4`
 const LinkStyled = ButtonStyled.withComponent(Link);
 
 const ItemVocabulary = ({
-  title, onClickEdit, onClickTest, id,
+  title, onClickEdit, onClickTest, id, onClickClose,
 }) => (
   <Item>
     <Title>{title}</Title>
-    <IconCloseStyled />
+    <IconCloseStyled
+      onClick={() => onClickClose(id)}
+    />
     <LinkStyled
       to={`/vocabularies/edit/${id}`}
       theme={{
@@ -55,7 +57,7 @@ const ItemVocabulary = ({
       Изменить
     </LinkStyled>
     <LinkStyled
-      to="/vocabularies/test"
+      to={`/vocabularies/test/${id}`}
       theme={{
         name: 'green',
         group: {
@@ -73,12 +75,14 @@ ItemVocabulary.propTypes = {
   title: PropTypes.string,
   onClickEdit: PropTypes.func,
   onClickTest: PropTypes.func,
+  onClickClose: PropTypes.func,
 };
 
 ItemVocabulary.defaultProps = {
   title: '',
   onClickEdit: null,
   onClickTest: null,
+  onClickClose: null,
 };
 
 export default ItemVocabulary;
