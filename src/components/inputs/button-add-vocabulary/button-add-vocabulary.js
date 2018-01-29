@@ -30,8 +30,10 @@ const PlusIconStyled = styled(PlusIcon)`
   height: 4rem;
 `;
 
-const ButtonAddVocabulary = ({ value }) => (
-  <Button>
+const ButtonAddVocabulary = ({ value, onClick }) => (
+  <Button
+    onClick={onClick}
+  >
     <PlusIconStyled className="hover-green" />
     <div className="hover-green">
       {value}
@@ -41,9 +43,11 @@ const ButtonAddVocabulary = ({ value }) => (
 
 ButtonAddVocabulary.propTypes = {
   value: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
 };
 
 ButtonAddVocabulary.defaultProps = {
+  onClick: null,
 };
 
 export default ButtonAddVocabulary;

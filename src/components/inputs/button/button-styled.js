@@ -21,6 +21,11 @@ const themes = {
     backgroundColor: '#6d1121',
     backgroundColorHover: '#92152b',
   },
+  disabled: {
+    backgroundColor: '#384237',
+    backgroundColorHover: '#384237',
+    color: '#ababab',
+  },
 };
 
 const ButtonStyled = styled.button`
@@ -34,7 +39,6 @@ const ButtonStyled = styled.button`
   font-weight: 600;
   font-family: Arial;
   cursor: pointer;
-  color: white;
   border: none;
   border-bottom-left-radius: ${({ theme: { group = {} } }) => (group.bottom === group.left) && '5px'};
   border-bottom-right-radius: ${({ theme: { group = {} } }) => (group.bottom === group.right) && '5px'};
@@ -42,6 +46,7 @@ const ButtonStyled = styled.button`
   border-top-right-radius: ${({ theme: { group = {} } }) => (group.top === group.right) && '5px'};
   background-color: ${({ theme: { name } }) => themes[name].backgroundColor};
   margin: ${({ theme: { margin } }) => margin || ''};
+  color: ${({ theme: { color } }) => color || 'white'};
 
   :hover {
     background-color: ${p => themes[p.theme.name].backgroundColorHover};
