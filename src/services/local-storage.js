@@ -2,9 +2,11 @@ const getLocalStorage = key => JSON.parse(localStorage.getItem(key));
 
 const setLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
-export const updateCatalog = (id) => {
+export const addToCatalog = (id) => {
   const catalog = getLocalStorage('catalog') || [];
-  setLocalStorage('catalog', [...catalog, id]);
+  if (catalog.indexOf(id) === -1) {
+    setLocalStorage('catalog', [...catalog, id]);
+  }
 };
 
 export const removeFromCatalog = (id) => {
@@ -15,7 +17,7 @@ export const removeFromCatalog = (id) => {
 
 export const saveVocabulary = (vocabulary) => {
   setLocalStorage(vocabulary.id, vocabulary);
-  updateCatalog(vocabulary.id);
+  addToCatalog(vocabulary.id);
 };
 
 export const removeVocabulary = (id) => {

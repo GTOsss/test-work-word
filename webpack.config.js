@@ -51,6 +51,8 @@ module.exports = {
     alias: {
       components: path.resolve(__dirname, 'src/components/'),
       containers: path.resolve(__dirname, 'src/containers/'),
+      utils: path.resolve(__dirname, 'src/utils/'),
+      services: path.resolve(__dirname, 'src/services/'),
       actions: path.resolve(__dirname, 'src/store/actions/'),
       constants: path.resolve(__dirname, 'src/store/constants/'),
     },
