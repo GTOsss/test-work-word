@@ -8,6 +8,7 @@ import Home from './home';
 injectGlobal` 
   body {
     margin: 0;
+    font-family: Arial;
   }
 `;
 
