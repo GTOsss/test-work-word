@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
 import NavbarHome from 'containers/navbar-home';
 import WrapBodyScroll from 'components/wrap-body';
 import HomePage from 'components/home';
@@ -16,8 +15,4 @@ const Home = () => (
   </div>
 );
 
-const mapStateToProps = state => ({
-  location: state.routing.location,
-});
-
-export default connect(mapStateToProps)(Home);
+export default Home;
